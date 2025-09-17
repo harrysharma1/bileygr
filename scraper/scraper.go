@@ -6,10 +6,6 @@ import (
 	"github.com/gocolly/colly"
 )
 
-var Providers = map[string]string{
-	"webtoon": "https://www.webtoons.com/en",
-}
-
 func TestScrape() {
 	c := colly.NewCollector(
 		colly.AllowedDomains("www.webtoons.com"),
