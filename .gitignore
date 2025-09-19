@@ -24,6 +24,9 @@
 # Go workspace file
 go.work
 
+# Go Templ
+*templ.go
+
 ### Node ###
 # Logs
 logs

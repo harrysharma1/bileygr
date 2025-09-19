@@ -10,7 +10,8 @@ watch:
 	find . -name "*.templ" | entr -r make compile
 
 tailwindcss:
-	bun run tailwindcss --config tailwind.config.js
+	bun run tailwindcss --config tailwind.config.js -i ./static/css/input.css -o ./static/css/output.css \
+		--content "./components/**/*.templ"
 
 templ:
 	templ generate ./components

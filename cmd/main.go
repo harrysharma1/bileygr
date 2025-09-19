@@ -9,5 +9,7 @@ import (
 func main() {
 	app := echo.New()
 	app.GET("/", handler.HomeHandler)
+
+	app.Static("/static", "static")
 	app.Logger.Fatal(app.Start(":6969"))
 }

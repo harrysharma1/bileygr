@@ -1,7 +1,14 @@
 package components
 
-templ Navbar(){
-<nav>
-Hello
-</nav>
+templ Navbar(isDarkMode bool){
+if isDarkMode {
+    <nav>
+    <div class="bg-slate-100">
+    <p class="text-2xl">Hello</p>
+    </div>
+    </nav>
+}else{
+    <nav>
+    </nav>
+}
 }
