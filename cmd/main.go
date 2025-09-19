@@ -1,7 +1,7 @@
 package main
 
-import "bileygr/scraper"
+import "bileygr/scraper/weebcentralscraper"
 
 func main() {
-	scraper.TestScrape()
+	weebcentralscraper.MAL()
 }
