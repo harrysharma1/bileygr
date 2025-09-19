@@ -2,8 +2,11 @@ module bileygr
 
 go 1.24.5
 
+require github.com/labstack/echo v3.3.10+incompatible
+
 require (
 	github.com/PuerkitoBio/goquery v1.10.3 // indirect
+	github.com/a-h/templ v0.3.943 // indirect
 	github.com/andybalholm/cascadia v1.3.3 // indirect
 	github.com/antchfx/htmlquery v1.3.4 // indirect
 	github.com/antchfx/xmlquery v1.4.4 // indirect
@@ -15,7 +18,6 @@ require (
 	github.com/golang/protobuf v1.5.4 // indirect
 	github.com/jawher/mow.cli v1.2.0 // indirect
 	github.com/kennygrant/sanitize v1.2.4 // indirect
-	github.com/labstack/echo v3.3.10+incompatible
 	github.com/labstack/echo/v4 v4.13.4 // indirect
 	github.com/labstack/gommon v0.4.2 // indirect
 	github.com/mattn/go-colorable v0.1.14 // indirect
