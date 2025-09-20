@@ -1,0 +1,21 @@
+package components
+
+type CardData struct {
+    Link   string
+    ImgSrc string
+    Status string
+    BType  string
+    Name   string
+}
+
+templ CardContainer(title string, cards []CardData){
+    <div class="">
+        <h2 class="text-xl font-bold mb-4">{ title }</h2>
+        <div class="flex flex-row overflow-auto">
+        for _, card := range cards {
+            @Card(card.Link, card.ImgSrc, card.Status, card.BType, card.Name)
+        }
+        </div>
+    </div>
+
+}

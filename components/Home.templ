@@ -14,9 +14,18 @@ templ Home(){
     </head>
     <body>
     @Navbar(false)
-    @Card("/","https://m.media-amazon.com/images/I/91NxYvUNf6L.jpg","Ongoing","Manga","One Piece")
-    @Card("/","https://m.media-amazon.com/images/I/81OYRZEQG7L.jpg","Completed","Manhwa","Solo Leveling")
-    
+    @CardContainer("Trending", []CardData{
+        {"/","https://m.media-amazon.com/images/I/91NxYvUNf6L.jpg","Ongoing","Manga","One Piece"},
+        {"/","https://m.media-amazon.com/images/I/81OYRZEQG7L.jpg","Completed","Manhwa","Solo Leveling"},
+        {"/","https://upload.wikimedia.org/wikipedia/en/4/4b/Berserk_manga_vol._1_%282016%29.png", "Ongoing", "Manga","Berserk"},
+        {"/","https://i.ebayimg.com/images/g/4awAAOSwkfhlaSFS/s-l1200.jpg", "Completed", "Manhwa", "The Greatest Estate Developer"},
+    })
+    @CardContainer("Best Selling", []CardData{
+        {"/","https://m.media-amazon.com/images/I/91NxYvUNf6L.jpg","Ongoing","Manga","One Piece"},
+        {"/","https://m.media-amazon.com/images/I/81OYRZEQG7L.jpg","Completed","Manhwa","Solo Leveling"},
+        {"/","https://upload.wikimedia.org/wikipedia/en/4/4b/Berserk_manga_vol._1_%282016%29.png", "Ongoing", "Manga","Berserk"},
+        {"/","https://i.ebayimg.com/images/g/4awAAOSwkfhlaSFS/s-l1200.jpg", "Completed", "Manhwa", "The Greatest Estate Developer"},
+    })
     </body>
     </html>
 }
