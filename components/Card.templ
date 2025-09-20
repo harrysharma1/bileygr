@@ -1,0 +1,35 @@
+package components
+
+templ cardType(){
+
+}
+
+templ typeTag(colour string, read string){
+    <span class="absolute top-0 right-0 p-1 rounded-bl-lg" style={ "background-color:"+ colour }>
+        <p class="text-white text-xs sm:text-xs md:text-sm">{ read }</p>
+    </span>
+}
+
+templ statusTag(colour string, status string){
+    <span class="absolute bottom-0 right-0 p-1 rounded-tl-lg" style={ "background-color:"+colour }>
+        <p class="text-white text-xs sm:text-xs md:text-sm">{ status }</p>
+    </span>
+}
+
+
+
+
+templ Card(link string, imgSrc string, status string, bType string, name string){
+        <a href={ link }>
+            <div class="block flex-none aspect-2/3 object-cover w-25 sm:w-25 md:w-50 bg-white border border-gray-200 rounded-2xl overflow-hidden relative">
+                <img src={ imgSrc }
+                class="w-full h-full object-cover"
+                />
+                @typeTag("#a855f7",bType)
+                @statusTag("#fb2c36",status)
+            </div>
+            <div class="text-xs sm:text-sm md:text-lg line-clamp-3 mt-2 text-ellipsis">
+            { name }
+            </div>
+        </a>
+}
