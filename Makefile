@@ -14,6 +14,6 @@ tailwindcss:
 		--content "./components/**/*.templ"
 
 templ:
-	templ generate ./components
+	templ generate --watch --proxy="http://localhost:6969" --cmd="go run cmd/main.go" ./components
 
 .PHONY: run compile vite watch test tailwindcss templ
