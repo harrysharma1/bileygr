@@ -22,9 +22,12 @@ templ Home(mangas []MInfo, manhwas []MInfo, manhuas []MInfo){
     <body>
 
     @Navbar(false)
+    <div class="pt-10"></div>
     @CardContainer("Trending Pulled Mangas", mangas)
-    @CardContainer("Trending Pulled Manwha", manhwas)
-    @CardContainer("Trending Pulled Manhua", manhuas) 
+    @CardContainer("Trending Pulled Manwhas", manhwas)
+    @CardContainer("Trending Pulled Manhuas", manhuas)
+    @CardContainer("Popular Pulled Manhuas", manhuas)  
+    @Footer()
     </body>
     </html>
 }
