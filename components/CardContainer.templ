@@ -8,12 +8,12 @@ type CardData struct {
     Name   string
 }
 
-templ CardContainer(title string, cards []CardData){
+templ CardContainer(title string, cards []MInfo){
     <div class="">
         <h2 class="text-xl font-bold mb-4">{ title }</h2>
         <div class="flex flex-row overflow-auto">
         for _, card := range cards {
-            @Card(card.Link, card.ImgSrc, card.Status, card.BType, card.Name)
+            @Card("", card.Image, card.Status, card.MType, card.Title)
         }
         </div>
     </div>

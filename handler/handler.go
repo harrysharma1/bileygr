@@ -22,13 +22,6 @@ func Render(ctx echo.Context, statusCode int, t templ.Component) error {
 	return ctx.HTML(statusCode, buf.String())
 }
 
-type MInfo struct {
-	title  string
-	mType  string
-	image  string
-	status string
-}
-
 func getStatus(status string) string {
 	switch status {
 	case "On Hiatus":
@@ -42,25 +35,26 @@ func getStatus(status string) string {
 	}
 }
 
-func getMInfo(mangas *jikan.TopManga) []MInfo {
-	var mangasStruct []MInfo
+func getMInfo(mangas *jikan.TopManga) []components.MInfo {
+	var mangasStruct []components.MInfo
 	for mangaIndex := range mangas.Data {
-		mangasStruct = append(mangasStruct, MInfo{
-			title:  mangas.Data[mangaIndex].TitleEnglish,
-			mType:  mangas.Data[mangaIndex].Type,
-			image:  mangas.Data[mangaIndex].Images.Jpg.LargeImageUrl,
-			status: getStatus(mangas.Data[mangaIndex].Status),
+		mangasStruct = append(mangasStruct, components.MInfo{
+			Title:  mangas.Data[mangaIndex].TitleEnglish,
+			MType:  mangas.Data[mangaIndex].Type,
+			Image:  mangas.Data[mangaIndex].Images.Jpg.LargeImageUrl,
+			Status: getStatus(mangas.Data[mangaIndex].Status),
 		})
 	}
 	return mangasStruct
 }
 
-func pPrintMInfo(mInfo []MInfo) {
+func pPrintMInfo(mInfo []components.MInfo) {
 	for idx := range mInfo {
-		fmt.Println("M Name:", mInfo[idx].title)
-		fmt.Println("M Type", mInfo[idx].mType)
-		fmt.Println("M Image:", mInfo[idx].image)
-		fmt.Println("M status:", mInfo[idx].status)
+		fmt.Println("M Name:", mInfo[idx].Title)
+		fmt.Println("M Type", mInfo[idx].MType)
+		fmt.Println("M Image:", mInfo[idx].Image)
+		fmt.Println("M status:", mInfo[idx].Status)
+		fmt.Println()
 	}
 }
 
@@ -102,5 +96,5 @@ func HomeHandler(c echo.Context) error {
 		fmt.Println("No manga data received")
 	}
 
-	return Render(c, http.StatusOK, components.Home())
+	return Render(c, http.StatusOK, components.Home(getMInfo(mangas), getMInfo(manhwas), getMInfo(manhuas)))
 }

@@ -1,6 +1,13 @@
 package components
 
-templ Home(){
+type MInfo struct {
+	Title  string
+	MType  string
+	Image  string
+	Status string
+}
+
+templ Home(mangas []MInfo, manhwas []MInfo, manhuas []MInfo){
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -13,21 +20,11 @@ templ Home(){
         <title>Bileygr</title>
     </head>
     <body>
+
     @Navbar(false)
-    @CardContainer("Trending", []CardData{
-        {"/","https://m.media-amazon.com/images/I/91NxYvUNf6L.jpg","Ongoing","Manga","One Piece"},
-        {"/","https://m.media-amazon.com/images/I/81OYRZEQG7L.jpg","Completed","Manhwa","Solo Leveling"},
-        {"/","https://upload.wikimedia.org/wikipedia/en/4/4b/Berserk_manga_vol._1_%282016%29.png", "Ongoing", "Manga","Berserk"},
-        {"/","https://i.ebayimg.com/images/g/4awAAOSwkfhlaSFS/s-l1200.jpg", "Completed", "Manhwa", "The Greatest Estate Developer"},
-        {"/","https://empresskorea.com/wp-content/uploads/2025/05/Lookism_-_Comic_Book_Vol.20_Korean_Ver._-_EmpressKorea-277764.jpg","Ongoing", "Manhwa","Lookism"},
-    })
-    @CardContainer("Best Selling", []CardData{
-        {"/","https://m.media-amazon.com/images/I/91NxYvUNf6L.jpg","Ongoing","Manga","One Piece"},
-        {"/","https://m.media-amazon.com/images/I/81OYRZEQG7L.jpg","Completed","Manhwa","Solo Leveling"},
-        {"/","https://upload.wikimedia.org/wikipedia/en/4/4b/Berserk_manga_vol._1_%282016%29.png", "Ongoing", "Manga","Berserk"},
-        {"/","https://i.ebayimg.com/images/g/4awAAOSwkfhlaSFS/s-l1200.jpg", "Completed", "Manhwa", "The Greatest Estate Developer"},
-        {"/","https://empresskorea.com/wp-content/uploads/2025/05/Lookism_-_Comic_Book_Vol.20_Korean_Ver._-_EmpressKorea-277764.jpg","Ongoing", "Manhwa","Lookism"},
-    })
+    @CardContainer("Trending Pulled Mangas", mangas)
+    @CardContainer("Trending Pulled Manwha", manhwas)
+    @CardContainer("Trending Pulled Manhua", manhuas) 
     </body>
     </html>
 }
