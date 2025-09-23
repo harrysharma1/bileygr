@@ -4,7 +4,11 @@ go 1.24.5
 
 require github.com/labstack/echo v3.3.10+incompatible
 
-require github.com/pkg/errors v0.9.1 // indirect
+require (
+	github.com/jackc/puddle/v2 v2.2.2 // indirect
+	github.com/pkg/errors v0.9.1 // indirect
+	golang.org/x/sync v0.17.0 // indirect
+)
 
 require (
 	github.com/PuerkitoBio/goquery v1.10.3 // indirect

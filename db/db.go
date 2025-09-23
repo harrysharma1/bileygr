@@ -1,17 +1,23 @@
 package db
 
 import (
-	"context"
+	"database/sql"
 	"log"
 
-	"github.com/jackc/pgx/v5"
+	_ "github.com/jackc/pgx/v5/stdlib"
 )
 
-func InitDB() {
+var DevDB *sql.DB
+
+func InitDevDB() {
+	var err error
 	uri := "postgresql://harrysharma@localhost:5432/bileygr"
-	conn, err := pgx.Connect(context.Background(), uri)
+	DevDB, err = sql.Open("pgx", uri)
 	if err != nil {
-		log.Fatalf("error connecting to db: %e", err)
+		log.Fatalf("error connecting to database: %s\n", err)
 	}
-	defer conn.Close(context.Background())
+
+	if err := DevDB.Ping(); err != nil {
+		log.Fatalf("error pinging database: %s\n", err)
+	}
 }
