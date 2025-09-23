@@ -4,6 +4,8 @@ go 1.24.5
 
 require github.com/labstack/echo v3.3.10+incompatible
 
+require github.com/pkg/errors v0.9.1 // indirect
+
 require (
 	github.com/PuerkitoBio/goquery v1.10.3 // indirect
 	github.com/a-h/templ v0.3.943 // indirect
@@ -20,6 +22,10 @@ require (
 	github.com/golang/groupcache v0.0.0-20241129210726-2c02b8208cf8 // indirect
 	github.com/golang/protobuf v1.5.4 // indirect
 	github.com/google/uuid v1.6.0 // indirect
+	github.com/jackc/pgpassfile v1.0.0 // indirect
+	github.com/jackc/pgservicefile v0.0.0-20240606120523-5a60cdf6a761 // indirect
+	github.com/jackc/pgx v3.6.2+incompatible
+	github.com/jackc/pgx/v5 v5.7.6 // indirect
 	github.com/jawher/mow.cli v1.2.0 // indirect
 	github.com/kennygrant/sanitize v1.2.4 // indirect
 	github.com/klauspost/compress v1.18.0 // indirect
