@@ -11,7 +11,7 @@ var DevDB *sql.DB
 
 func InitDevDB() {
 	var err error
-	uri := "postgresql://harrysharma@localhost:5432/bileygr"
+	uri := "postgresql://harrysharma@localhost/bileygr"
 	DevDB, err = sql.Open("pgx", uri)
 	if err != nil {
 		log.Fatalf("error connecting to database: %s\n", err)
