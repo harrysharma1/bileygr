@@ -45,7 +45,7 @@ func pPrintMInfo(mInfo []components.MInfo) {
 	}
 }
 
-func HomeHandler(c echo.Context) error {
+func Home(c echo.Context) error {
 	mangas, errManga := jikan.GetTopManga(jikan.TopMangaTypeManga, jikan.TopMangaFilterByPopularity, 1)
 	if errManga != nil {
 		c.Logger().Warnf("failed to fetch Manga: %v", errManga)
