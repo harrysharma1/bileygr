@@ -11,14 +11,21 @@ func Run(app *echo.Echo) {
 	app.GET("/", handler.Home)
 
 	users(app)
+	auth(app)
 	reading(app)
 
 	app.Logger.Fatal(app.Start(":6969"))
 }
 
+func auth(app *echo.Echo) {
+	app.GET("/registration", handler.HandleRegistation)
+	app.GET("/login", handler.HandleLogin)
+	app.POST("/auth/login", handler.HandleLoginAuth)
+	app.POST("/auth/register", handler.SaveUser)
+}
+
 func users(app *echo.Echo) {
 	app.GET("/users/:id", handler.GetUser)
-	app.POST("/users", handler.SaveUser)
 	app.PUT("/users/:id", handler.UpdateUser)
 	app.DELETE("/users/:id", handler.DeleteUser)
 }

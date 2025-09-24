@@ -45,43 +45,24 @@ func pPrintMInfo(mInfo []components.MInfo) {
 	}
 }
 
-func Home(c echo.Context) error {
+func Home(ctx echo.Context) error {
 	mangas, errManga := jikan.GetTopManga(jikan.TopMangaTypeManga, jikan.TopMangaFilterByPopularity, 1)
 	if errManga != nil {
-		c.Logger().Warnf("failed to fetch Manga: %v", errManga)
+		ctx.Logger().Warnf("failed to fetch Manga: %v", errManga)
 		mangas = &jikan.TopManga{}
-	}
-
-	if len(mangas.Data) > 0 {
-		mangaInfo := getMInfo(mangas)
-		pPrintMInfo(mangaInfo)
-	} else {
-		fmt.Println("No manga data received")
 	}
 
 	manhwas, errManhwa := jikan.GetTopManga(jikan.TopMangaTypeManhwa, jikan.TopMangaFilterByPopularity, 1)
 	if errManhwa != nil {
-		c.Logger().Warnf("failed to fetch Manga: %v", errManhwa)
+		ctx.Logger().Warnf("failed to fetch Manga: %v", errManhwa)
 		manhwas = &jikan.TopManga{}
-	}
-	if len(manhwas.Data) > 0 {
-		manhwasInfo := getMInfo(manhwas)
-		pPrintMInfo(manhwasInfo)
-	} else {
-		fmt.Println("No manga data received")
 	}
 
 	manhuas, errManhua := jikan.GetTopManga(jikan.TopMangaTypeManhua, jikan.TopMangaFilterByPopularity, 1)
 	if errManhua != nil {
-		c.Logger().Warnf("failed to fetch Manga: %v", errManhua)
+		ctx.Logger().Warnf("failed to fetch Manga: %v", errManhua)
 		manhuas = &jikan.TopManga{}
 	}
-	if len(manhuas.Data) > 0 {
-		manhuasInfo := getMInfo(manhuas)
-		pPrintMInfo(manhuasInfo)
-	} else {
-		fmt.Println("No manga data received")
-	}
 
-	return Render(c, http.StatusOK, components.Home(getMInfo(mangas), getMInfo(manhwas), getMInfo(manhuas)))
+	return Render(ctx, http.StatusOK, components.Home(getMInfo(mangas), getMInfo(manhwas), getMInfo(manhuas)))
 }

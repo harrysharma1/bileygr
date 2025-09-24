@@ -1,0 +1,33 @@
+package components
+
+
+templ Registration(){
+     <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+        <link rel="stylesheet" href="./static/css/output.css">
+
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Bileygr - Registration</title>
+    </head>
+    <body class="bg-gray-100">
+
+    @Navbar(false)
+    <div class="pt-10"></div>
+    <form method="POST" action="/auth/register" class="min-h-screen g-slate-600 flex flex-col gap-1 p-1">
+    <label>Username *</label>
+    <input id="username" name="username" type="text" required/>
+    <label>Password *</label>
+    <input id="password" name="password" type="password" required/>
+    <label>Email</label>
+    <input id="email" name="email" type="email"/>
+    <button>Submit</button>
+    </form>
+   
+    @Footer()
+    </body>
+    </html>
+}

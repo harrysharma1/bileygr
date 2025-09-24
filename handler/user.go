@@ -2,7 +2,6 @@ package handler
 
 import (
 	"bileygr/db"
-	"encoding/json"
 	"errors"
 	"log"
 	"net/http"
@@ -12,35 +11,23 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-type Creds struct {
-	Username string `json:"username", db:"username"`
-	Password string `json:"password", db:"password"`
-}
-
 func SaveUser(ctx echo.Context) error {
-	creds := &Creds{}
-	err := json.NewDecoder(ctx.Request().Body).Decode(creds)
-	if err != nil {
-		return ctx.JSON(http.StatusBadRequest, map[string]string{
-			"error": "invalid request format",
-		})
-	}
+	username := ctx.FormValue("username")
+	password := ctx.FormValue("password")
 
-	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(creds.Password), 8)
+	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), 8)
 	if err != nil {
 		return ctx.JSON(http.StatusInternalServerError, map[string]string{
-			"error": "processing password",
+			"error": err.Error(),
 		})
 	}
 	id := uuid.New()
-	log.Printf("Username: %s\n Password: %s", creds.Username, string(hashedPassword))
-
 	_, err = db.DevDB.Exec("INSERT INTO users (id, username, password, created_at) VALUES ($1, $2, $3, NOW())",
-		id.String(), creds.Username, string(hashedPassword))
+		id.String(), username, string(hashedPassword))
 	if err != nil {
 		log.Printf("Database error: %v", err)
 		return ctx.JSON(http.StatusInternalServerError, map[string]string{
-			"error": "creating user",
+			"error": err.Error(),
 		})
 	}
 	return ctx.JSON(http.StatusCreated, map[string]string{
