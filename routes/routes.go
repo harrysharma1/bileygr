@@ -2,6 +2,7 @@ package routes
 
 import (
 	"bileygr/handler"
+	"bileygr/middleware"
 
 	"github.com/labstack/echo"
 )
@@ -25,9 +26,11 @@ func auth(app *echo.Echo) {
 }
 
 func users(app *echo.Echo) {
-	app.GET("/users/:id", handler.GetUser)
-	app.PUT("/users/:id", handler.UpdateUser)
-	app.DELETE("/users/:id", handler.DeleteUser)
+	protected := app.Group("")
+	protected.Use(middleware.JWT)
+	protected.GET("/users/:id", handler.GetUser)
+	protected.PUT("/users/:id", handler.UpdateUser)
+	protected.DELETE("/users/:id", handler.DeleteUser)
 }
 
 func reading(app *echo.Echo) {
