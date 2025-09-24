@@ -6,6 +6,7 @@ require github.com/labstack/echo v3.3.10+incompatible
 
 require (
 	github.com/jackc/puddle/v2 v2.2.2 // indirect
+	github.com/joho/godotenv v1.5.1 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	golang.org/x/sync v0.17.0 // indirect
 )
