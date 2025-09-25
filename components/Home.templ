@@ -1,13 +1,8 @@
 package components
 
-type MInfo struct {
-	Title  string
-	MType  string
-	Image  string
-	Status string
-}
 
-templ Home(mangas []MInfo, manhwas []MInfo, manhuas []MInfo){
+
+templ Home(authenticated bool){
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -21,12 +16,8 @@ templ Home(mangas []MInfo, manhwas []MInfo, manhuas []MInfo){
     </head>
     <body>
 
-    @Navbar(false)
+    @Navbar(authenticated)
     <div class="pt-10"></div>
-    @CardContainer("Trending Pulled Mangas", mangas)
-    @CardContainer("Trending Pulled Manwhas", manhwas)
-    @CardContainer("Trending Pulled Manhuas", manhuas)
-    @CardContainer("Popular Pulled Manhuas", manhuas)  
     @Footer()
     </body>
     </html>

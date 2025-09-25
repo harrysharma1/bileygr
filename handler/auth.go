@@ -4,11 +4,12 @@ import (
 	"bileygr/components"
 	"bileygr/config"
 	"bileygr/db"
-	"errors"
+	"log"
 	"net/http"
 	"time"
 
 	"github.com/golang-jwt/jwt"
+	"github.com/google/uuid"
 	"github.com/labstack/echo"
 	"golang.org/x/crypto/bcrypt"
 )
@@ -17,8 +18,28 @@ func HandleRegistation(ctx echo.Context) error {
 	return Render(ctx, http.StatusOK, components.Registration())
 }
 
-func Register(ctx echo.Context) error {
-	return errors.New("error not implemented")
+func HandleRegistationAuth(ctx echo.Context) error {
+	username := ctx.FormValue("username")
+	password := ctx.FormValue("password")
+
+	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), 8)
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, map[string]string{
+			"error": err.Error(),
+		})
+	}
+	id := uuid.New()
+	_, err = db.DevDB.Exec("INSERT INTO users (id, username, password, created_at) VALUES ($1, $2, $3, NOW())",
+		id.String(), username, string(hashedPassword))
+	if err != nil {
+		log.Printf("Database error: %v", err)
+		return ctx.JSON(http.StatusInternalServerError, map[string]string{
+			"error": err.Error(),
+		})
+	}
+	return ctx.JSON(http.StatusCreated, map[string]string{
+		"message": "user created successfully",
+	})
 }
 
 func HandleLogin(ctx echo.Context) error {
@@ -63,14 +84,25 @@ func HandleLoginAuth(ctx echo.Context) error {
 	}
 
 	cookie := new(http.Cookie)
-	cookie.Name = "token"
+	cookie.Name = "authToken"
 	cookie.Value = t
 	cookie.Expires = time.Now().Add(cfg.JWT.TokenExpiry)
 	cookie.Path = "/"
 	cookie.HttpOnly = true
 	ctx.SetCookie(cookie)
 
-	return ctx.JSON(http.StatusOK, map[string]string{
-		"message": "Login successful",
-	})
+	return ctx.Redirect(http.StatusSeeOther, "/")
+}
+
+func HandleLogoutAuth(ctx echo.Context) error {
+	cookie := new(http.Cookie)
+	cookie.Name = "authToken"
+	cookie.Value = ""
+	cookie.Expires = time.Now().Add(-1 * time.Hour) // Set expiry in the past
+	cookie.Path = "/"
+	cookie.HttpOnly = true
+	cookie.MaxAge = -1 // Immediately expire the cookie
+
+	ctx.SetCookie(cookie)
+	return ctx.Redirect(http.StatusSeeOther, "/")
 }

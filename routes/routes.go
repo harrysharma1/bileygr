@@ -22,7 +22,8 @@ func auth(app *echo.Echo) {
 	app.GET("/registration", handler.HandleRegistation)
 	app.GET("/login", handler.HandleLogin)
 	app.POST("/auth/login", handler.HandleLoginAuth)
-	app.POST("/auth/register", handler.SaveUser)
+	app.POST("/auth/register", handler.HandleRegistationAuth)
+	app.POST("/auth/logout", handler.HandleLogoutAuth)
 }
 
 func users(app *echo.Echo) {
