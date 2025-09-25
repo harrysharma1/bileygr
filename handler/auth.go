@@ -38,9 +38,35 @@ func HandleRegistationAuth(ctx echo.Context) error {
 			"error": err.Error(),
 		})
 	}
-	return ctx.JSON(http.StatusCreated, map[string]string{
-		"message": "user created successfully",
-	})
+
+	cfg, errC := config.Load()
+	if errC != nil {
+		return ctx.JSON(http.StatusInternalServerError, map[string]string{
+			"error": "failed to load config",
+		})
+	}
+
+	token := jwt.New(jwt.SigningMethodHS256)
+	claims := token.Claims.(jwt.MapClaims)
+	claims["user_id"] = id
+	claims["exp"] = time.Now().Add(cfg.JWT.TokenExpiry).Unix()
+
+	t, err := token.SignedString([]byte(cfg.JWT.Secret))
+	if err != nil {
+		return ctx.JSON(http.StatusInternalServerError, map[string]string{
+			"error": "could not generate token",
+		})
+	}
+
+	cookie := new(http.Cookie)
+	cookie.Name = "authToken"
+	cookie.Value = t
+	cookie.Expires = time.Now().Add(cfg.JWT.TokenExpiry)
+	cookie.Path = "/"
+	cookie.HttpOnly = true
+	ctx.SetCookie(cookie)
+
+	return ctx.Redirect(http.StatusSeeOther, "/")
 }
 
 func HandleLogin(ctx echo.Context) error {
