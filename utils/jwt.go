@@ -1,6 +1,7 @@
 package utils
 
 import (
+	"bileygr/db"
 	"errors"
 	"time"
 
@@ -36,4 +37,16 @@ func VerifyToken(tokenString string) error {
 	}
 
 	return nil
+}
+
+func GetUserFromToken(token *jwt.Token) (string, error) {
+	claims := token.Claims.(jwt.MapClaims)
+	userId := claims["user_id"].(string)
+
+	var username string
+	err := db.DevDB.QueryRow("SELECT username FROM users WHERE id = $1", userId).Scan(&username)
+	if err != nil {
+		return "", err
+	}
+	return username, nil
 }

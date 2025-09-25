@@ -10,7 +10,7 @@ import (
 
 func JWT(next echo.HandlerFunc) echo.HandlerFunc {
 	return func(ctx echo.Context) error {
-		cookie, err := ctx.Cookie("token")
+		cookie, err := ctx.Cookie("authToken")
 		if err != nil {
 			return ctx.JSON(http.StatusUnauthorized, map[string]string{
 				"error": "missing authentication",
@@ -33,6 +33,7 @@ func JWT(next echo.HandlerFunc) echo.HandlerFunc {
 		}
 		claims := token.Claims.(jwt.MapClaims)
 		ctx.Set("user_id", claims["user_id"])
+		ctx.Set("username", claims["username"])
 		return next(ctx)
 	}
 }

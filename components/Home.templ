@@ -2,7 +2,7 @@ package components
 
 
 
-templ Home(authenticated bool){
+templ Home(authenticated bool, username string){
     <!DOCTYPE html>
     <html lang="en">
     <head>
@@ -16,9 +16,8 @@ templ Home(authenticated bool){
     </head>
     <body class="min-h-screen">
 
-    @Navbar(authenticated)
+    @Navbar(authenticated, username)
     <main class="container mx-auto px-4 pt-24 sm:pt-32">
-    Hello
     </main>
     @Footer()
     </body>

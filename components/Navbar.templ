@@ -33,7 +33,7 @@ templ baseNavbar() {
     </nav>
 }
 
-templ authenticatedNavbar() {
+templ authenticatedNavbar(username string) {
     <nav class="fixed top-0 left-0 w-full z-50 bg-white border-b border-gray-200 dark:bg-gray-900">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16">
@@ -54,7 +54,7 @@ templ authenticatedNavbar() {
                     </div>
                 </div>
                 <div class="flex items-center">
-                    <a href="/profile" class="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 px-3 py-2 rounded-md text-sm font-medium">
+                    <a href={"/users/"+username} class="text-gray-700 dark:text-gray-300 hover:text-indigo-600 dark:hover:text-indigo-400 px-3 py-2 rounded-md text-sm font-medium">
                         Profile
                     </a>
                     <form method="POST" action="/auth/logout">
@@ -68,9 +68,9 @@ templ authenticatedNavbar() {
     </nav>
 }
 
-templ Navbar(isAuthenticated bool) {
+templ Navbar(isAuthenticated bool, username string) {
     if isAuthenticated {
-        @authenticatedNavbar()
+        @authenticatedNavbar(username)
     } else {
         @baseNavbar()
     }

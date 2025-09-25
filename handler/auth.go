@@ -102,6 +102,7 @@ func HandleLoginAuth(ctx echo.Context) error {
 	claims := token.Claims.(jwt.MapClaims)
 	claims["user_id"] = userID
 	claims["exp"] = time.Now().Add(cfg.JWT.TokenExpiry).Unix()
+	claims["username"] = username
 
 	t, err := token.SignedString([]byte(cfg.JWT.Secret))
 	if err != nil {
