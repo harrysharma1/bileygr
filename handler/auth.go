@@ -21,6 +21,7 @@ func HandleRegistation(ctx echo.Context) error {
 func HandleRegistationAuth(ctx echo.Context) error {
 	username := ctx.FormValue("username")
 	password := ctx.FormValue("password")
+	email := ctx.FormValue("email")
 
 	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), 8)
 	if err != nil {
@@ -29,8 +30,8 @@ func HandleRegistationAuth(ctx echo.Context) error {
 		})
 	}
 	id := uuid.New()
-	_, err = db.DevDB.Exec("INSERT INTO users (id, username, password, created_at) VALUES ($1, $2, $3, NOW())",
-		id.String(), username, string(hashedPassword))
+	_, err = db.DevDB.Exec("INSERT INTO users (id, username, email, password, created_at) VALUES ($1, $2, $3, $4, NOW())",
+		id.String(), username, email, string(hashedPassword))
 	if err != nil {
 		log.Printf("Database error: %v", err)
 		return ctx.JSON(http.StatusInternalServerError, map[string]string{
