@@ -29,9 +29,10 @@ func auth(app *echo.Echo) {
 func users(app *echo.Echo) {
 	protected := app.Group("")
 	protected.Use(middleware.JWT)
-	protected.GET("/users/:id", handler.GetUser)
-	protected.PUT("/users/:id", handler.UpdateUser)
-	protected.DELETE("/users/:id", handler.DeleteUser)
+	protected.GET("/users/:username", handler.GetUser)
+	protected.GET("/users/:username/info", handler.GetUserInfo)
+	protected.PUT("/users/:username", handler.UpdateUser)
+	protected.DELETE("/users/:username", handler.DeleteUser)
 }
 
 func reading(app *echo.Echo) {

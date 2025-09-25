@@ -1,0 +1,45 @@
+package components
+
+templ Profile(username string){
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/htmx.org@2.0.7/dist/htmx.min.js" integrity="sha384-ZBXiYtYQ6hJ2Y0ZNoYuI+Nq5MqWBr+chMrS/RkXpNzQCApHEhOt2aY8EJgqwHLkJ" crossorigin="anonymous"></script>
+        
+        <link rel="stylesheet" href="/static/css/output.css">
+
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Bileygr - { username }</title>
+         <script>
+            htmx.logAll();
+        </script>
+    </head>
+    <body class="min-h-screen">
+
+    @Navbar(true, username)
+    <main class="container mx-auto px-4 pt-24 sm:pt-32">
+        <div 
+                hx-get={"/users/" + username + "/info"} 
+                hx-trigger="load" 
+                hx-swap="innerHTML"
+                class="bg-white shadow rounded-lg p-6"
+            >
+                <div class="animate-pulse flex space-x-4">
+                    <div class="flex-1 space-y-4 py-1">
+                        <div class="h-4 bg-gray-200 rounded w-3/4"></div>
+                        <div class="space-y-2">
+                            <div class="h-4 bg-gray-200 rounded"></div>
+                            <div class="h-4 bg-gray-200 rounded w-5/6"></div>
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </main>
+   
+    @Footer()
+    </body>
+    </html>
+}
